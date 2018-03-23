@@ -5,7 +5,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      placeName: ''
+      placeName: '',
+      places: ''
     }
 
   }
@@ -15,26 +16,35 @@ export default class App extends React.Component {
         })
       }
 
-      onPressLearnMore(){
-
+      handlePlaceSubmit = () => {
+        if(this.state.placeName.trim() === ''){
+          return;
+        }
+        this.setState(prevState => {
+          return {
+            places: prevState.places.concat(prevState.placeName)
+          }
+        })
       }
  
 
   render() {
     return (
       <View style={styles.container}>
-         <TextInput value={this.state.placeName}
-         placeholder="An Awesome Place"
-        style={styles.inputBox}
-        onChangeText={this.handleInputChange}
-      />
-      <Button
-        // onPress={onPressLearnMore}
-        title="Add"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-        style={styles.buttonPlace}
-      />
+        <View style={styles.inputBox}>
+          <TextInput value={this.state.placeName}
+          placeholder="An Awesome Place"
+          style={styles.placeInput}
+          onChangeText={this.handleInputChange}
+          />
+        <Button
+          onPress={this.handlePlaceSubmit}
+          title="Add"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+          style={styles.buttonPlace}
+        />
+        </View>
       </View>
     );
   }
@@ -48,7 +58,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   inputBox: {
-    width: '90%'
+    // flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    padding: 10
+  },
+  placeInput: {
+    width: '70%'
   },
   placeButton: {
     width: '30%'
