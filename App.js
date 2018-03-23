@@ -6,7 +6,7 @@ export default class App extends React.Component {
     super(props);
     this.state = { 
       placeName: '',
-      places: ''
+      places: []
     }
 
   }
@@ -17,18 +17,22 @@ export default class App extends React.Component {
       }
 
       handlePlaceSubmit = () => {
-        if(this.state.placeName.trim() === ''){
+        if(this.state.placeName.trim() === ""){
           return;
         }
         this.setState(prevState => {
           return {
-            places: prevState.places.concat(prevState.placeName)
+            places: prevState.places.concat(prevState.placeName),
+            placeName: ''
           }
         })
       }
  
 
   render() {
+    const placesOutput = this.state.places.map( (place, i) => (
+      <Text key={i}>{place}</Text>
+    ))
     return (
       <View style={styles.container}>
         <View style={styles.inputBox}>
@@ -44,6 +48,9 @@ export default class App extends React.Component {
           accessibilityLabel="Learn more about this purple button"
           style={styles.buttonPlace}
         />
+        </View>
+        <View>
+          {placesOutput}
         </View>
       </View>
     );
