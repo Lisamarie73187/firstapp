@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
+import ListItem from './src/components/ListItem'
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +33,7 @@ export default class App extends React.Component {
 
   render() {
     const placesOutput = this.state.places.map( (place, i) => (
-      <Text key={i}>{place}</Text>
+      <ListItem key={i} placeName={place}/>
     ))
     return (
       <View style={styles.container}>
@@ -49,7 +51,7 @@ export default class App extends React.Component {
           style={styles.buttonPlace}
         />
         </View>
-        <View>
+        <View style={styles.listContainer}>
           {placesOutput}
         </View>
       </View>
@@ -77,5 +79,12 @@ const styles = StyleSheet.create({
   },
   placeButton: {
     width: '30%'
+  },
+  listContainer: {
+    width: "90%",
   }
 });
+
+
+
+// export PATH="/Users/lisaherzberg/Library/Android/sdk/platform-tools":$PATH
